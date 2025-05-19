@@ -1,6 +1,5 @@
-Login
-User : pradana (admin)
-Pass : 123456
-
-User : 062030701635 (mahasiswa)
-Pass : 123456
+Penilaian Project Akhir XI PPLG B
+Kelompok 5
+- Azza Tegar Athaulllah
+- Hafidz Izdihar Bintang Santoso
+- Nicholas Farel Alfiano [Author]
