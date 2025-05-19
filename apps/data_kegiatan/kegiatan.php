@@ -45,17 +45,17 @@
 
 <?php
     include 'config/database.php';
-    $id_mahasiswa=$_SESSION["id_mahasiswa"];
-    $sql="select * from tbl_mahasiswa where id_mahasiswa=$id_mahasiswa limit 1";
+    $id_siswa=$_SESSION["id_siswa"];
+    $sql="select * from tbl_siswa where id_siswa=$id_siswa limit 1";
     $hasil=mysqli_query($kon,$sql);
     $data = mysqli_fetch_array($hasil);
-    $mulai_magang=$data['mulai_magang'];
-    $akhir_magang=$data['akhir_magang'];
+    $mulai_semester=$data['mulai_semester'];
+    $akhir_semester=$data['akhir_semester'];
 
     setlocale(LC_TIME, 'id_ID');
     $tanggal_sekarang = new DateTime();
-    $tanggal_masuk = strftime("%d %B %Y", strtotime($mulai_magang));
-    $tanggal_keluar = strftime("%d %B %Y", strtotime($akhir_magang));
+    $tanggal_masuk = strftime("%d %B %Y", strtotime($mulai_semester));
+    $tanggal_keluar = strftime("%d %B %Y", strtotime($akhir_semester));
 ?>
 
 <div class="row">
@@ -75,8 +75,8 @@
             ?>
 
                 <div class="form-group">
-                    <button id_mahasiswa="<?php echo $_SESSION['id_mahasiswa']; ?>" type="button" class="btn btn-success" id="tombol_kegiatan"><i class="fa fa-plus"></i>  Tambah</button>
-                    <button id_mahasiswa="<?php echo $_SESSION['id_mahasiswa']; ?>" class="cetak_kegiatan btn btn-primary btn-circle" id="cetak_kegiatan"><i class="fa fa-print"></i> Cetak</button>
+                    <button id_siswa="<?php echo $_SESSION['id_siswa']; ?>" type="button" class="btn btn-success" id="tombol_kegiatan"><i class="fa fa-plus"></i>  Tambah</button>
+                    <button id_siswa="<?php echo $_SESSION['id_siswa']; ?>" class="cetak_kegiatan btn btn-primary btn-circle" id="cetak_kegiatan"><i class="fa fa-print"></i> Cetak</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -94,14 +94,14 @@
                         <?php
                             include 'config/database.php';
                             include 'config/function.php';
-                            $id_mahasiswa= $_SESSION["id_mahasiswa"];
+                            $id_siswa= $_SESSION["id_siswa"];
                             if (isset($_GET['tanggal_awal']) AND $_GET['tanggal_akhir']) {
                                 $tanggal_awal=$_GET["tanggal_awal"];
                                 $tanggal_akhir=$_GET["tanggal_akhir"];
-                                $sql= MencarikanKegiatan($id_mahasiswa, $tanggal_awal, $tanggal_akhir);
+                                $sql= MencarikanKegiatan($id_siswa, $tanggal_awal, $tanggal_akhir);
                             } 
                             else { 
-                            $sql= MenampilkanKegiatan($id_mahasiswa);
+                            $sql= MenampilkanKegiatan($id_siswa);
                             }                          
                             $hasil=mysqli_query($kon,$sql);
                             $no=0;
@@ -174,11 +174,11 @@
 
 <script>
     $('#tombol_kegiatan').on('click',function(){
-        var id_mahasiswa = $(this).attr("id_mahasiswa");
+        var id_siswa = $(this).attr("id_siswa");
         $.ajax({
             url: 'apps/pengguna/mulai_kegiatan.php',
             method: 'POST',
-            data: {id_mahasiswa: id_mahasiswa},
+            data: {id_siswa: id_siswa},
             success:function(data){
                 $('#tampil_data').html(data);  
                 document.getElementById("judul").innerHTML='Tambah Kegiatan';
@@ -191,11 +191,11 @@
 
 <script>
     $('#cetak_kegiatan').on('click',function(){
-        var id_mahasiswa = $(this).attr("id_mahasiswa");
+        var id_siswa = $(this).attr("id_siswa");
         $.ajax({
             url: 'apps/data_kegiatan/cetak.php',
             method: 'POST',
-            data: {id_mahasiswa: id_mahasiswa},
+            data: {id_siswa: id_siswa},
             success:function(data){
                 $('#tampil_data').html(data);  
                 document.getElementById("judul").innerHTML='Cetak Kegiatan';

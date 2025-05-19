@@ -8,22 +8,22 @@
 <?php
     // Mengambil data dari sessi login
     include 'config/database.php';
-    $id_mahasiswa=$_SESSION["id_mahasiswa"];
-    $sql="select * from tbl_mahasiswa where id_mahasiswa=$id_mahasiswa limit 1";
+    $id_siswa=$_SESSION["id_siswa"];
+    $sql="select * from tbl_siswa where id_siswa=$id_siswa limit 1";
     $hasil=mysqli_query($kon,$sql);
     $data = mysqli_fetch_array($hasil);
     $nama=$data['nama'];
-    $universitas=$data['universitas'];
-    $nim=$data['nim'];
-    $mulai_magang=$data['mulai_magang'];
-    $akhir_magang=$data['akhir_magang'];
+    $kelas=$data['kelas'];
+    $nis=$data['nis'];
+    $mulai_semester=$data['mulai_semester'];
+    $akhir_semester=$data['akhir_semester'];
     $foto=$data['foto'];
 
     // Mengubah format tanggal ke bahasa Indonesia
     setlocale(LC_TIME, 'id_ID');
     $tanggal_sekarang = new DateTime();
-    $tanggal_masuk = strftime("%d %B %Y", strtotime($mulai_magang));
-    $tanggal_keluar = strftime("%d %B %Y", strtotime($akhir_magang));
+    $tanggal_masuk = strftime("%d %B %Y", strtotime($mulai_semester));
+    $tanggal_keluar = strftime("%d %B %Y", strtotime($akhir_semester));
 ?>
 
 <?php
@@ -73,11 +73,11 @@
                     </tr>
                     <tr>
                         <td>Nomor Induk Siswa</td>
-                        <td width="80%">: <?php echo $nim; ?></td>
+                        <td width="80%">: <?php echo $nis; ?></td>
                     </tr>
                     <tr>
                         <td>Kelas</td>
-                        <td width="80%">: <?php echo $universitas; ?></td>
+                        <td width="80%">: <?php echo $kelas; ?></td>
                     </tr>
                     <tr>
                         <td>Tanggal</td>
@@ -102,7 +102,7 @@
                             if ($hari_sekarang == "Saturday" || $hari_sekarang == "Sunday") {
                                 echo "Hari Libur";
                             } else {
-                                $kueri = "SELECT waktu FROM tbl_absensi WHERE id_mahasiswa = '$id_mahasiswa' AND tanggal = '$tanggal_sekarang'";
+                                $kueri = "SELECT waktu FROM tbl_absensi WHERE id_siswa = '$id_siswa' AND tanggal = '$tanggal_sekarang'";
                                 $result = mysqli_query($kon, $kueri);
                             if (mysqli_num_rows($result) > 0) {
                                 $data = mysqli_fetch_assoc($result);
@@ -124,7 +124,7 @@
                             if ($hari_sekarang == "Saturday" || $hari_sekarang == "Sunday") {
                                 echo "Hari Libur";
                                 } else {
-                                    $kueri = "SELECT status FROM tbl_absensi WHERE id_mahasiswa = '$id_mahasiswa' AND tanggal = '$tanggal_sekarang'";
+                                    $kueri = "SELECT status FROM tbl_absensi WHERE id_siswa = '$id_siswa' AND tanggal = '$tanggal_sekarang'";
                                     $result = mysqli_query($kon, $kueri);
                                 if (mysqli_num_rows($result) > 0) {
                                     $data = mysqli_fetch_array($result);

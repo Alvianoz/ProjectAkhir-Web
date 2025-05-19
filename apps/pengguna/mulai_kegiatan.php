@@ -10,7 +10,7 @@
             return $data;
         }
 
-        $id_mahasiswa=$_SESSION["id_mahasiswa"];
+        $id_siswa=$_SESSION["id_siswa"];
         date_default_timezone_set("Asia/Jakarta");
         $kegiatan = $_POST["kegiatan"];
         $waktu_awal = $_POST["waktu_awal"];
@@ -18,8 +18,8 @@
         $tanggal= date("Y-m-d");
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $sql = "INSERT INTO tbl_kegiatan (id_mahasiswa,kegiatan,waktu_awal,waktu_akhir,tanggal) 
-        VALUES ('$id_mahasiswa','$kegiatan','$waktu_awal','$waktu_akhir','$tanggal')";
+        $sql = "INSERT INTO tbl_kegiatan (id_siswa,kegiatan,waktu_awal,waktu_akhir,tanggal) 
+        VALUES ('$id_siswa','$kegiatan','$waktu_awal','$waktu_akhir','$tanggal')";
 
         $simpan_kegiatan=mysqli_query($kon,$sql);
         

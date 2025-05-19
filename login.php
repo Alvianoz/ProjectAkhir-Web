@@ -53,13 +53,13 @@
             $row = mysqli_fetch_assoc($cek_tabel_mahasiswa);
             $_SESSION["id_pengguna"]=$row["id_user"];
             $_SESSION["kode_pengguna"]=$row["kode_pengguna"];
-            $_SESSION["id_mahasiswa"]=$row["id_mahasiswa"];
-            $_SESSION["nama_mahasiswa"]=$row["nama"];
+            $_SESSION["id_siswa"]=$row["id_siswa"];
+            $_SESSION["nama_siswa"]=$row["nama"];
             $_SESSION["username"]=$row["username"];
-            $_SESSION["universitas"]=$row["universitas"];
+            $_SESSION["kelas"]=$row["kelas"];
             $_SESSION["level"]=$row["level"];
             $_SESSION["foto"]=$row["foto"];
-            $_SESSION["nim"]=$row["nim"];
+            $_SESSION["nis"]=$row["nis"];
             //mengalihkan halaman ke page beranda
             header("Location:index.php?page=beranda");
         } else {

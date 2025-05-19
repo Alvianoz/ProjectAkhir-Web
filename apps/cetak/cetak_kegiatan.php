@@ -1,6 +1,6 @@
 <?php
     
-    $id_mahasiswa = $_GET["id_mahasiswa"];
+    $id_siswa = $_GET["id_siswa"];
     $tanggal_awal = $_GET["tanggal_awal"];
     $tanggal_akhir = $_GET["tanggal_akhir"];
 
@@ -31,7 +31,7 @@
     $pdf->Line(10,32,206,32);
 
     //Mendampilkan data dari tabel jadwal dan direlasikan dengan beberapa tabel lainnya
-    $sql="select * from tbl_mahasiswa where id_mahasiswa=$id_mahasiswa";
+    $sql="select * from tbl_siswa where id_siswa=$id_siswa";
     $hasil=mysqli_query($kon,$sql);
     $data = mysqli_fetch_array($hasil); 
 
@@ -45,10 +45,10 @@
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(30,6,'Nama ',0,0);
     $pdf->Cell(31,6,': '.$data['nama'],0,1);
-    $pdf->Cell(30,6,'Nim ',0,0);
-    $pdf->Cell(31,6,': '.$data['nim'],0,1);
-    $pdf->Cell(30,6,'Universitas ',0,0);
-    $pdf->Cell(31,6,': '.$data['universitas'],0,1);
+    $pdf->Cell(30,6,'Nis ',0,0);
+    $pdf->Cell(31,6,': '.$data['nis'],0,1);
+    $pdf->Cell(30,6,'Kelas ',0,0);
+    $pdf->Cell(31,6,': '.$data['kelas'],0,1);
     $pdf->Cell(30,6,'Jurusan ',0,0);
     $pdf->Cell(31,6,': '.$data['jurusan'],0,1);
 
@@ -65,12 +65,12 @@
 
     $no= 0;
 
-    $sql="SELECT tbl_kegiatan.id_kegiatan, tbl_kegiatan.id_mahasiswa, 
+    $sql="SELECT tbl_kegiatan.id_kegiatan, tbl_kegiatan.id_siswa, 
     DATE_FORMAT(tbl_kegiatan.tanggal, '%d-%M-%Y') AS tanggal, 
     DAYNAME(tbl_kegiatan.tanggal) AS hari, 
 	tbl_kegiatan.waktu_awal, tbl_kegiatan.waktu_akhir,
     tbl_kegiatan.kegiatan
-    FROM tbl_kegiatan WHERE tbl_kegiatan.id_mahasiswa = '$id_mahasiswa'
+    FROM tbl_kegiatan WHERE tbl_kegiatan.id_siswa = '$id_siswa'
     AND tbl_kegiatan.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' 
     ORDER BY tbl_kegiatan.tanggal ASC;";
     $hasil=mysqli_query($kon,$sql);
@@ -98,7 +98,7 @@
     $pdf->Cell(340,0,'Pembimbing Magang',0,1,'C');
     $pdf->Cell(340,50,$pembimbing,0,1,'C');
 
-    $kueri="select nama from tbl_mahasiswa where id_mahasiswa=$id_mahasiswa";
+    $kueri="select nama from tbl_siswa where id_siswa=$id_siswa";
     $hasilsql=mysqli_query($kon,$kueri);
     $hasilnama = mysqli_fetch_array($hasilsql); 
     $nama=$hasilnama['nama'];

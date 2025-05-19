@@ -117,7 +117,7 @@
                 <img src="apps/mahasiswa/foto/<?php echo $_SESSION['foto'];?>" class="img-responsive" alt="">
             </div>
             <div class="profile-usertitle">
-            <?php echo substr($_SESSION['nama_mahasiswa'],0,20); ?>
+            <?php echo substr($_SESSION['nama_siswa'],0,20); ?>
                 <div class="profile-usertitle-name"><?php echo "Peserta Didik"; ?></div>
                 <div></div>
             </div>

@@ -48,7 +48,7 @@
             <div class="panel-body">
                 
                 <div class="form-group">
-                    <button id_mahasiswa='<?php echo $_SESSION['id_mahasiswa']; ?>' type="button" class="cetak btn btn-primary" id="cetak"><i class="fa fa-print"></i> Cetak</button>
+                    <button id_siswa='<?php echo $_SESSION['id_siswa']; ?>' type="button" class="cetak btn btn-primary" id="cetak"><i class="fa fa-print"></i> Cetak</button>
                 </div>
                 <table class="table table-bordered table-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -67,11 +67,11 @@
                             // include database
                             include 'config/database.php';
                             include 'config/function.php';
-                            $id_mahasiswa=$_SESSION["id_mahasiswa"];
+                            $id_siswa=$_SESSION["id_siswa"];
                             if (isset($_GET['tanggal_awal']) AND $_GET['tanggal_akhir']) {
                                 $tanggal_awal=$_GET["tanggal_awal"];
                                 $tanggal_akhir=$_GET["tanggal_akhir"];
-                                $sql= "SELECT tbl_absensi.id_absensi, tbl_absensi.id_mahasiswa, tbl_alasan.id_alasan, 
+                                $sql= "SELECT tbl_absensi.id_absensi, tbl_absensi.id_siswa, tbl_alasan.id_alasan, 
                                 DAYNAME(tbl_absensi.tanggal) AS hari,
                                 tbl_absensi.waktu,
                                 tbl_absensi.tanggal,
@@ -83,13 +83,13 @@
                                     ELSE 'Belum Absensi'
                                 END) AS status
                                 FROM tbl_absensi
-                                LEFT JOIN tbl_alasan ON tbl_absensi.tanggal = tbl_alasan.tanggal AND tbl_absensi.id_mahasiswa = tbl_alasan.id_mahasiswa
-                                WHERE tbl_absensi.id_mahasiswa = '$id_mahasiswa' AND
+                                LEFT JOIN tbl_alasan ON tbl_absensi.tanggal = tbl_alasan.tanggal AND tbl_absensi.id_siswa = tbl_alasan.id_siswa
+                                WHERE tbl_absensi.id_siswa = '$id_siswa' AND
                                 tbl_absensi.tanggal >= '$tanggal_awal' AND
                                 tbl_absensi.tanggal <= '$tanggal_akhir'
                                 ORDER BY tbl_absensi.tanggal DESC;";
                             } else {
-                                $sql="SELECT tbl_absensi.id_absensi, tbl_absensi.id_mahasiswa, tbl_alasan.id_alasan, 
+                                $sql="SELECT tbl_absensi.id_absensi, tbl_absensi.id_siswa, tbl_alasan.id_alasan, 
                                 DAYNAME(tbl_absensi.tanggal) AS hari,
                                 tbl_absensi.waktu,
                                 tbl_absensi.tanggal,
@@ -101,8 +101,8 @@
                                     ELSE 'Belum Absensi'
                                 END) AS status
                                 FROM tbl_absensi
-                                LEFT JOIN tbl_alasan ON tbl_absensi.tanggal = tbl_alasan.tanggal AND tbl_absensi.id_mahasiswa = tbl_alasan.id_mahasiswa
-                                WHERE tbl_absensi.id_mahasiswa = '$id_mahasiswa'
+                                LEFT JOIN tbl_alasan ON tbl_absensi.tanggal = tbl_alasan.tanggal AND tbl_absensi.id_siswa = tbl_alasan.id_siswa
+                                WHERE tbl_absensi.id_siswa = '$id_siswa'
                                 ORDER BY tbl_absensi.tanggal DESC;";
                             }                           
                             $hasil=mysqli_query($kon,$sql);
@@ -169,11 +169,11 @@
 <script>
     // Setting absensi
     $('.cetak').on('click',function(){
-        var id_mahasiswa = $(this).attr("id_mahasiswa");
+        var id_siswa = $(this).attr("id_siswa");
         $.ajax({
             url: 'apps/data_absensi/cetak.php',
             method: 'POST',
-            data: {id_mahasiswa: id_mahasiswa},
+            data: {id_siswa: id_siswa},
             success:function(data){
                 $('#tampil_data').html(data);  
                 document.getElementById("judul").innerHTML='Cetak Absensi';

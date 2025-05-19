@@ -21,7 +21,7 @@
                 //Mengambil kode_pengguna dari session
                 $kode_pengguna=$_SESSION["kode_pengguna"];
                 //Query untuk menampilkan data mahasiswa dari tbl_mahasiswa
-                $sql="SELECT * FROM tbl_mahasiswa WHERE kode_mahasiswa='$kode_pengguna' LIMIT 1";
+                $sql="SELECT * FROM tbl_siswa WHERE kode_siswa='$kode_pengguna' LIMIT 1";
                 //Menyimpan hasil query
                 $hasil=mysqli_query($kon,$sql);
                 //Menyimpan hasil jadi array
@@ -29,7 +29,7 @@
             ?>
 
             <?php
-                //Validasi Untuk menampilkan memberitahuan saat mahasiswa mengubah password
+                //Validasi Untuk menampilkan memberitahuan saat siswa mengubah password
                 if (isset($_GET['pengguna'])) {
                     if ($_GET['pengguna']=='berhasil'){
                         echo"<div class='alert alert-success'><strong>Berhasil!</strong> Ubah Password berhasil</div>";
@@ -47,11 +47,11 @@
                         </tr>
                         <tr>
                             <td>Nomor Induk Siswa</td>
-                            <td width="75%">: <?php echo $data['nim'];?></td>
+                            <td width="75%">: <?php echo $data['nis'];?></td>
                         </tr>
                         <tr>
                             <td>Kelas</td>
-                            <td width="75%">: <?php echo $data['universitas'];?></td>
+                            <td width="75%">: <?php echo $data['kelas'];?></td>
                         </tr>
                         <tr>
                             <td>Jurusan</td>
@@ -68,12 +68,12 @@
                         </tr>
                         <tr>
                             <td>Foto</td>
-                            <td width="20%">: <img src="apps/mahasiswa/foto/<?php echo $data['foto']; ?>" id="preview" width="25%" class="rounded" alt="Cinque Terre"></td>
+                            <td width="20%">: <img src="apps/mahasiswa/foto/<?php echo $data['foto']; ?>" id="preview" width="25%" class="rounded" alt="<?php echo $data['foto']; ?>"></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="form-group">
-                <button kode_mahasiswa="<?php echo $data['kode_mahasiswa'];?>" class="password btn btn-info btn-circle" ><i class="fa fa-key"></i>Password</button>
+                <button kode_siswa="<?php echo $data['kode_siswa'];?>" class="password btn btn-info btn-circle" ><i class="fa fa-key"></i>Password</button>
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
 <!-- Modal -->
 
 <script>
-    // Setting password mahasiswa
+    // Setting password siswa
     $('.password').on('click',function(){
         var kode_mahasiswa = $(this).attr("kode_mahasiswa");
         $.ajax({
